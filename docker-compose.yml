@@ -1,0 +1,26 @@
+ version: "3.8"
+ services:
+  app:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    image: app:django_store
+    environment:
+      - DATABASE_NAME=postgres
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+    container_name: django_store
+    command: sh -c "python manage.py runserver 0.0.0.0:8000"
+    restart: always
+    depends_on:
+      - db 
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    container_name: postgres_db_store
