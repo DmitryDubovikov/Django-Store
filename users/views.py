@@ -49,9 +49,13 @@ def profile(request):
             return HttpResponseRedirect(reverse("users:profile"))
     else:
         form = UserProfileForm(instance=request.user)
+
+    baskets = Basket.objects.filter(user=request.user)
     context = {
         "title": "Store - Profile",
         "form": form,
-        "baskets": Basket.objects.filter(user=request.user),
+        "baskets": baskets,
+        "total_sum": baskets.total_sum(),
+        "total_quantity": baskets.total_quantity(),
     }
     return render(request, "users/profile.html", context)
