@@ -24,3 +24,4 @@
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     container_name: postgres_db_store
+    restart: always
